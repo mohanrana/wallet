@@ -1,7 +1,13 @@
 /* eslint-disable import/newline-after-import */
 const { Logger } = require('motifer');
 const logger = Logger.getLogger(__filename);
-const { check, validationResult } = require('express-validator');
+const { check, validationResult, param } = require('express-validator');
+
+const checkNumber = (value) => {
+  if (value === 0 || value === '0') throw new Error('Amount can not be 0.');
+
+  return true;
+};
 
 exports.createNewWallet = async (req) => {
   await check('name')
@@ -21,8 +27,8 @@ exports.createNewWallet = async (req) => {
     .withMessage('The balance should not be empty.')
     .isNumeric()
     .withMessage('The balance should be a number.')
-    .isFloat({ min: 0, max: 10 })
-    .withMessage('Opening balance should be 10.')
+    .isFloat({ min: 1, max: 10 })
+    .withMessage('Opening balance should be 1-10.')
     .run(req);
   const errors = validationResult(req);
   logger.debug(`Validators failure ${errors}`);
@@ -31,12 +37,11 @@ exports.createNewWallet = async (req) => {
 };
 
 exports.fetchWallet = async (req) => {
-  await check('walletId')
+  await param('walletId')
     .exists()
     .withMessage('walletId is required')
     .isString()
     .withMessage('walletId shoud be a string.')
-    .isLength({ min: 12 })
     .withMessage('Invalid walletId.')
     .run(req);
   const errors = validationResult(req);
@@ -51,7 +56,6 @@ exports.createTransaction = async (req) => {
     .withMessage('walletId is required')
     .isString()
     .withMessage('walletId shoud be a string.')
-    .isLength({ min: 12 })
     .withMessage('Invalid walletId.')
     .run(req);
   await check('amount')
@@ -60,6 +64,7 @@ exports.createTransaction = async (req) => {
     .isNumeric()
     .withMessage('amount should be a number.')
     .trim()
+    .custom((value) => checkNumber(value))
     .run(req);
   await check('description')
     .exists()
@@ -67,7 +72,8 @@ exports.createTransaction = async (req) => {
     .notEmpty()
     .withMessage('The description should not be empty.')
     .isLength({ max: 20 })
-    .withMessage('description length exceeded.')
+    .withMessage('description length should not be more than 20 character.')
+    .optional()
     .run(req);
   const errors = validationResult(req);
   logger.debug(`Validators failure ${errors}`);

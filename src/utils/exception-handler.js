@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/newline-after-import */
 const { Logger } = require('motifer');
 const logger = Logger.getLogger(__filename);
 const { Response } = require('./responses');
 
-exports.exceptionHandler = (err, req, res) => {
+exports.exceptionHandler = (err, req, res, next) => {
   logger.debug('Exception handler invoked.', err.message);
   if (err.statusCode === 400) {
     res.statusMessage = err.statusMessage || 'Invalid request body supplied';

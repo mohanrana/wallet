@@ -30,7 +30,7 @@ const getWallet = async (params) => {
       createdDate: response[0].createdAt
     };
   } else {
-    throw new Error('WalletId not found.');
+    throw new Error('NOTFOUND');
   }
 
   return resObj;

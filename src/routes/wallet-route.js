@@ -51,10 +51,10 @@ router.get('/:walletId?', async (req, res, next) => {
     const errResponse = error;
     if (
       error.message.includes('failed for value')
-      || error.message.includes('WalletId not')
+      || error.message.includes('NOTFOUND')
     ) {
       errResponse.statusCode = 404;
-      errResponse.message = 'Wallet not exist.';
+      errResponse.message = 'WalletId is required.';
       errResponse.statusMessage = 'Wallet not found';
     }
 
@@ -69,8 +69,8 @@ router.post('/:walletId?/transactions', async (req, res, next) => {
     logger.debug('Validation Errors are:', errors);
     const response = {
       message: errors.array()[0].msg,
-      statusCode: 404,
-      statusMessage: 'Wallet not found'
+      statusCode: 400,
+      statusMessage: 'Invalid request body supplied'
     };
 
     return next(response);
@@ -83,7 +83,13 @@ router.post('/:walletId?/transactions', async (req, res, next) => {
   } catch (error) {
     logger.error('The exception ', error.message);
     error.statusCode = 500;
-    next(error);
+    if (error.message === 'NOTFOUND') {
+      error.statusCode = 404;
+      error.statusMessage = 'walletId not found';
+      error.message = 'walletId not found';
+    }
+
+    return next(error);
   }
 });
 
@@ -94,7 +100,7 @@ router.get('/:walletId?/transactions', async (req, res, next) => {
     logger.debug('Validation Errors are:', errors);
     const response = {
       message: errors.array()[0].msg,
-      statusCode: 404,
+      statusCode: 400,
       statusMessage: 'Wallet not found'
     };
 
@@ -107,8 +113,18 @@ router.get('/:walletId?/transactions', async (req, res, next) => {
     return res.status(200).json(response);
   } catch (error) {
     logger.error('The exception ', error.message);
-    error.statusCode = 500;
-    next(error);
+    const resError = {
+      statusCode: 500,
+      message: error.message
+    };
+
+    if (error.kind === 'ObjectId') {
+      resError.statusCode = 404;
+      resError.statusMessage = 'walletId not found';
+      resError.message = 'Wallet not exist.';
+    }
+
+    return next(resError);
   }
 });
 

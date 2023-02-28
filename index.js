@@ -9,7 +9,6 @@ const createApp = async () => {
   const { app } = await initializeServices();
   app.use(middlewares.router);
   app.use('/', routes);
-
   app.use(exceptionHandler);
   app.listen(config.get('server.port'), () => {
     logger.info(`App started on port ${config.get('server.port')}`);
