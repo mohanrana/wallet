@@ -1,0 +1,19 @@
+{
+  "server": {
+    "port": 3000,
+    "serviceName": "wallet",
+    "corsWhitelist": ["localhost"]
+  },
+  "swagger-server": {
+    "url": "http://localhost:3000",
+    "corsWhitelist": ["localhost"]
+  },
+  "logs": {
+    "level": "info"
+  },
+  "database": {
+    "uri": "mongodb://localhost:24000/wallet?authsource=admin",
+    "username": "wallet",
+    "password": "wallet"
+  }
+}
