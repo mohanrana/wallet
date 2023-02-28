@@ -1,14 +1,14 @@
 
 # Wallet 
 
-This project help you to create REST APIs on Express server Node.Js. This project has MVC architecture for creating REST APIs. This project has mainly three componants Controller, services aand repository. Controller layer only take care for APIs endpoints, Service layer drive your business logic and repository layer will help to interact with you database.
+This project helps you to create REST APIs on the Node.Js Express server. This project has MVC architecture for creating REST APIs. This project has mainly three components Controller, services, and repository. The controller layer only takes care of API endpoints, the Service layer drives your business logic and the repository layer helps to interact with your database.
 
-I this project MongoDB is used as a database for storing wallets records and transactions.
+MongoDB is used as a database for storing wallet records and transaction history.
 
 
 ## Installation
 
-To install this project, clone the repository first. In this project MongoDB docker-compose.yml also present. Also has a script to install docker on Ubuntu.
+Clone the repository and set up MongoDB first. In this project, MongoDB docker-compose.yml is present.  You can setup docker on Ubuntu by simply running a shell script as mentioned below.
 
 ```bash
   # To setup docker and docker-compose on Ubuntu.
