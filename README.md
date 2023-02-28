@@ -37,18 +37,10 @@ WARNING: See https://github.com/node-config/node-config/wiki/Strict-Mode
 2023-02-28T15:57:45.744Z [service] [null] [wallet] [INFO] [index.js] App started on port 3000
 2023-02-28T15:57:45.772Z [service] [null] [wallet] [INFO] [MongoDB-connection.js] Mongoose default connection is open to MongoDB://localhost:24000/wallet?authsource=admin
 ```
+<span style="color:red">NOTE: If MongoDB is already setup you can change the password inside 'wallet/config/default.json'</span>
 
-NOTE: If MongoDB is already setup you can change the password inside `wallet/config/default.json`
+https://github.com/mohanrana/wallet/blob/master/config/default.json
 
-```json
-{
-  "database": {
-    "uri": "MongoDB://localhost:24000/wallet?authsource=admin",
-    "username": "wallet",
-    "password": "wallet"
-  }
-}
-```
 ## API Reference
 
 #### check service health
@@ -101,6 +93,11 @@ It will create a transactions for the amount you have entered.
 | `walletId`      | `string` | **Required**. Wallet ID. |
 
 Return the last 10 transactions history.
+
+<span style="color:red">NOTE: Postman collection has added for APIs reference, Import the collection and start API testing.</span>
+
+https://github.com/mohanrana/wallet/blob/master/Wallet.postman_collection.json
+
 ## Authors
 
 - [@mohanrana](https://github.com/mohanrana)
