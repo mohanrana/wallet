@@ -43,6 +43,10 @@ https://github.com/mohanrana/wallet/blob/master/config/default.json
 
 ## API Reference
 
+<span style="color:red">NOTE: Postman collection has added for APIs reference, Import the collection and start API testing.</span>
+
+https://github.com/mohanrana/wallet/blob/master/Wallet.postman_collection.json
+
 #### check service health
 
 ```http
@@ -93,10 +97,6 @@ It will create a transactions for the amount you have entered.
 | `walletId`      | `string` | **Required**. Wallet ID. |
 
 Return the last 10 transactions history.
-
-<span style="color:red">NOTE: Postman collection has added for APIs reference, Import the collection and start API testing.</span>
-
-https://github.com/mohanrana/wallet/blob/master/Wallet.postman_collection.json
 
 ## Authors
 
