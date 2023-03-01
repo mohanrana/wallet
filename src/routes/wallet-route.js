@@ -83,6 +83,7 @@ router.post('/:walletId?/transactions', async (req, res, next) => {
   } catch (error) {
     logger.error('The exception ', error.message);
     error.statusCode = 500;
+    error.message = 'Something went wrong.';
     if (error.message === 'NOTFOUND') {
       error.statusCode = 404;
       error.statusMessage = 'walletId not found';
